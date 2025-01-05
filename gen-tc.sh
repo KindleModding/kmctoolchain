@@ -26,9 +26,7 @@ Build_CT-NG() {
 	echo "[-] compiling with ${PARALLEL_JOBS} parallel jobs"
 	echo "[-] toolchain target: ${tc_target}"
 
-	if [ ! -d CT-NG ]; then
-		git submodule update --init --recursive
-	fi
+	git submodule update --init --recursive
 	pushd CT-NG
 		git clean -fxdq
 		./bootstrap

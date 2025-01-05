@@ -49,7 +49,7 @@ Build_CT-NG() {
 		$CT_NG_PATH oldconfig
 		$CT_NG_PATH upgradeconfig
 		$CT_NG_PATH updatetools
-		nice $CT_NG_PATH build
+		nice $CT_NG_PATH build.$PARALLEL_JOBS
 		echo ""
 		echo "[INFO ]  ================================================================="
 		echo "[INFO ]  Build done. Please add $HOME/x-tools/${tc_target}/bin to your PATH."

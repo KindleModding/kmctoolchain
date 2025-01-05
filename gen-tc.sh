@@ -33,7 +33,7 @@ Build_CT-NG() {
 		git clean -fxdq
 		./bootstrap
 		[ ! -d "CT_NG_BUILD" ] && mkdir -p "CT_NG_BUILD"
-		./configure --prefix="CT_NG_BUILD"
+		./configure --prefix="$(pwd)/CT_NG_BUILD"
 		make -j${PARALLEL_JOBS}
 		make install
 		export PATH="CT_NG_BUILD/bin:${PATH}"

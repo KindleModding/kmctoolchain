@@ -36,21 +36,22 @@ Build_CT-NG() {
 		./configure --prefix="$(pwd)/CT_NG_BUILD"
 		make -j${PARALLEL_JOBS}
 		make install
-		export PATH="CT_NG_BUILD/bin:${PATH}"
+		#export PATH="$(pwd)/CT_NG_BUILD/bin:${PATH}"
+		CT_NG_PATH="$(pwd)/CT_NG_BUILD/bin/ct-ng"
 	popd
 	# extract platform name from target tuple
 	tmp_str="${tc_target#*-}"
-	TC_BUILD_DIR="${tmp_str%%-*}"
+	TC_BUILD_DIR="build/${tmp_str%%-*}"
 	[ ! -d "${TC_BUILD_DIR}" ] && mkdir -p "${TC_BUILD_DIR}"
 	pushd "${TC_BUILD_DIR}"
-		ct-ng distclean
+		$CT_NG_PATH distclean
 
 		unset CFLAGS CXXFLAGS LDFLAGS
-		ct-ng "${tc_target}"
-		ct-ng oldconfig
-		ct-ng upgradeconfig
-		ct-ng updatetools
-		nice ct-ng build
+		$CT_NG_PATH "${tc_target}"
+		$CT_NG_PATH oldconfig
+		$CT_NG_PATH upgradeconfig
+		$CT_NG_PATH updatetools
+		nice $CT_NG_PATH build
 		echo ""
 		echo "[INFO ]  ================================================================="
 		echo "[INFO ]  Build done. Please add $HOME/x-tools/${tc_target}/bin to your PATH."
